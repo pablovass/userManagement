@@ -40,14 +40,14 @@ Esta documentación describe los endpoints de la API de registro y consulta de u
 - **Contrato de entrada:**
     ```json
     {
-        "name": String,
-        "email": String,
-        "password": String,
+        "name": "String",
+        "email": "String",
+        "password": "String",
         "phones": [
             {
-                "number": long,
-                "citycode": int,
-                "contrycode": String
+                "number": "long",
+                "citycode": "int",
+                "contrycode": "String"
             }
         ]
     }
@@ -117,9 +117,9 @@ En caso de error en cualquiera de los endpoints, se retornará una respuesta de 
 {
     "error": [
         {
-            "timestamp": Timestamp,
-            "codigo": int,
-            "detail": String
+            "timestamp": "Timestamp",
+            "codigo": "int",
+            "detail": "String"
         }
     ]
 }
