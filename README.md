@@ -1,5 +1,5 @@
 # userManagement
-microservicio, cuyo proyecto debe ser SpringBoot / Gradle, para la creación y consulta de usuarios.
+microservicio para consulta y creacion de usuarios.
 # User Management Microservice
 
 Este es un microservicio desarrollado en Java con Spring Boot para la creación y consulta de usuarios, así como la gestión de la seguridad. Permite a los usuarios registrarse, iniciar sesión y consultar su información.
@@ -15,7 +15,7 @@ Este es un microservicio desarrollado en Java con Spring Boot para la creación 
 ## Requisitos
 
 - Java 8 o superior.
-- Maven para la gestión de dependencias.
+- Gradle 8 o superior para la gestión de dependencias.
 - IDE de desarrollo compatible con Spring Boot (por ejemplo, IntelliJ IDEA o Eclipse).
 
 ## Configuración
@@ -25,28 +25,105 @@ Este es un microservicio desarrollado en Java con Spring Boot para la creación 
 3. Personaliza la configuración de la base de datos en `application.properties`.
 4. Compila y ejecuta la aplicación.
 
-## Uso
+# Uso
+## Documentación de API - Registro y Consulta de Usuarios
 
-### Registro de usuarios
+Esta documentación describe los endpoints de la API de registro y consulta de usuarios para una aplicación Java Spring Boot 2.7. La API permite la creación de nuevos usuarios y la consulta de usuarios existentes utilizando tokens JWT para la autenticación.
 
-Para registrar un nuevo usuario, realiza una solicitud POST a la siguiente URL:
+## Endpoints
 
+### Registro de Usuario
 
-El cuerpo de la solicitud debe ser un JSON que cumpla con el contrato de entrada especificado en la documentación.
+- **URL:** `/sign-up`
+- **Método HTTP:** `POST`
+- **Descripción:** Endpoint para crear un nuevo usuario.
+- **Contrato de entrada:**
+    ```json
+    {
+        "name": String,
+        "email": String,
+        "password": String,
+        "phones": [
+            {
+                "number": long,
+                "citycode": int,
+                "contrycode": String
+            }
+        ]
+    }
+    ```
+- **Validaciones:**
+  - El correo debe seguir la expresión regular `(aaaaaaa@undominio.algo)`.
+  - La contraseña debe seguir la expresión regular (minimo 8 o maximo 12 letras o numeros) `(a2asfGfdfdf4)`.
+- **Campos opcionales:**
+  - El nombre y los teléfonos son campos opcionales.
+- **Respuesta exitosa:**
+  - En caso de éxito, se retorna el usuario con los siguientes campos:
+      ```json
+      {  
+      "user_created":{
+          "id": "e5c6cf84-8860-4c00-91cd-22d3be28904e",
+          "created": "Nov 16, 2021 12:51:43 PM",
+          "lastLogin:": "Nov 16, 2021 12:51:43 PM",
+          "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWxpb0B0ZXN0",
+          "isActive": true
+        }
+      }
+      ```
+- **Persistencia de Datos:**
+  - El usuario se persiste en una base de datos utilizando Spring Data y H2.
+  - La contraseña se almacena de manera encriptada.
 
-### Inicio de sesión
+### Consulta de Usuario
 
-Para iniciar sesión y obtener un token JWT, realiza una solicitud POST a la siguiente URL:
+- **URL:** `/login`
+- **Método HTTP:** `GET`
+- **Descripción:** Endpoint para consultar la información de un usuario autenticado.
+- **Contrato de entrada:**
+    ```
+    http://localhost:8080/api/login?token={user token}
+   EJEMPLO: http://localhost:8080/api/login?token=eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTY4OTI
+    ```
+- **Autenticación:** Se requiere un token JWT generado en el endpoint de registro.
+- **Respuesta exitosa:**
+  - En caso de éxito, se retorna la información del usuario:
+      ```json
+      {
+          "id": "e5c6cf84-8860-4c00-91cd-22d3be28904e",
+          "created": "Ene 20, 2021 12:51:43 PM",
+          "lastLogin": "Nov 16, 2023 12:51:43 PM",
+          "token": "NuevoTokenGenerado",
+          "isActive": true,
+          "name": "Julio Gonzalez",
+          "email": "julio@testssw.cl",
+          "password": "a2asfGfdfdf4",
+          "phones": [
+              {
+                  "number": 87650009,
+                  "citycode": 7,
+                  "contrycode": "25"
+              }
+          ]
+      }
+      ```
+- **Notas:**
+  - El token se actualiza cada vez que se realiza una consulta exitosa.
 
+## Respuesta de Error
 
-Proporciona el correo y la contraseña en el cuerpo de la solicitud. El servicio generará un token JWT que deberás incluir en las futuras solicitudes para autenticarte.
+En caso de error en cualquiera de los endpoints, se retornará una respuesta de error en el siguiente formato:
 
-### Consulta de información de usuario
-
-Para consultar la información de un usuario autenticado, realiza una solicitud GET a la siguiente URL:
-
-
-Reemplaza `{id}` con el ID del usuario que deseas consultar. Asegúrate de incluir el token JWT en la cabecera de la solicitud para la autenticación.
+```json
+{
+  "error": [
+    {
+      "timestamp": Timestamp,
+      "codigo": int,
+      "detail": String
+    }
+  ]
+}
+```
 
 ## Contribución
 
@@ -59,9 +136,9 @@ Si deseas contribuir a este proyecto, sigue estos pasos:
 
 ## Licencia
 
-Este proyecto se distribuye bajo la licencia [Nombre de la Licencia]. Consulta el archivo `LICENSE` para más detalles.
+Este proyecto es netamente academico.
 
 ## Contacto
 
-Si tienes preguntas o sugerencias, no dudes en ponerte en contacto con [tu nombre] en [tu correo electrónico].
+Si tienes preguntas o sugerencias, no dudes en ponerte en contacto con Pablo  en vallejos_pablo@live.com.
 

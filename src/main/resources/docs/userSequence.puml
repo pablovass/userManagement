@@ -1,0 +1,26 @@
+@startuml
+actor User
+
+User -> PersonController: Realiza una solicitud de registro
+PersonController -> PersonService: Llama al servicio de registro
+activate PersonService
+PersonService -> Person: Crea una nueva persona
+activate Person
+Person -> PersonRepository: Almacena la información en la base de datos
+PersonRepository --> Person: Confirma el almacenamiento
+deactivate Person
+PersonService --> PersonService: Genera un token de acceso
+PersonService --> User: Retorna la respuesta de registro exitoso
+deactivate PersonService
+
+User -> PersonController: Realiza una solicitud de registro inválida
+PersonController -> ValidationService: Valida la solicitud
+activate ValidationService
+ValidationService --> PersonController: Solicitud de registro inválida
+deactivate ValidationService
+PersonController --> ErrorController: Reporta el error
+activate ErrorController
+ErrorController --> User: Retorna una respuesta de error
+deactivate ErrorController
+
+@enduml
