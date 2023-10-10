@@ -53,26 +53,26 @@ Esta documentación describe los endpoints de la API de registro y consulta de u
     }
     ```
 - **Validaciones:**
-  - El correo debe seguir la expresión regular `(aaaaaaa@undominio.algo)`.
-  - La contraseña debe seguir la expresión regular (minimo 8 o maximo 12 letras o numeros) `(a2asfGfdfdf4)`.
+    - El correo debe seguir la expresión regular `(aaaaaaa@undominio.algo)`.
+    - La contraseña debe seguir la expresión regular (minimo 8 o maximo 12 letras o numeros) `(a2asfGfdfdf4)`.
 - **Campos opcionales:**
-  - El nombre y los teléfonos son campos opcionales.
+    - El nombre y los teléfonos son campos opcionales.
 - **Respuesta exitosa:**
-  - En caso de éxito, se retorna el usuario con los siguientes campos:
-      ```json
-      {  
-      "user_created":{
-          "id": "e5c6cf84-8860-4c00-91cd-22d3be28904e",
-          "created": "Nov 16, 2021 12:51:43 PM",
-          "lastLogin:": "Nov 16, 2021 12:51:43 PM",
-          "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWxpb0B0ZXN0",
-          "isActive": true
+    - En caso de éxito, se retorna el usuario con los siguientes campos:
+        ```json
+        {  
+        "user_created":{
+            "id": "e5c6cf84-8860-4c00-91cd-22d3be28904e",
+            "created": "Nov 16, 2021 12:51:43 PM",
+            "lastLogin:": "Nov 16, 2021 12:51:43 PM",
+            "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWxpb0B0ZXN0",
+            "isActive": true
+          }
         }
-      }
-      ```
+        ```
 - **Persistencia de Datos:**
-  - El usuario se persiste en una base de datos utilizando Spring Data y H2.
-  - La contraseña se almacena de manera encriptada.
+    - El usuario se persiste en una base de datos utilizando Spring Data y H2.
+    - La contraseña se almacena de manera encriptada.
 
 ### Consulta de Usuario
 
@@ -86,28 +86,28 @@ Esta documentación describe los endpoints de la API de registro y consulta de u
     ```
 - **Autenticación:** Se requiere un token JWT generado en el endpoint de registro.
 - **Respuesta exitosa:**
-  - En caso de éxito, se retorna la información del usuario:
-      ```json
-      {
-          "id": "e5c6cf84-8860-4c00-91cd-22d3be28904e",
-          "created": "Ene 20, 2021 12:51:43 PM",
-          "lastLogin": "Nov 16, 2023 12:51:43 PM",
-          "token": "NuevoTokenGenerado",
-          "isActive": true,
-          "name": "Julio Gonzalez",
-          "email": "julio@testssw.cl",
-          "password": "a2asfGfdfdf4",
-          "phones": [
-              {
-                  "number": 87650009,
-                  "citycode": 7,
-                  "contrycode": "25"
-              }
-          ]
-      }
-      ```
+    - En caso de éxito, se retorna la información del usuario:
+        ```json
+        {
+            "id": "e5c6cf84-8860-4c00-91cd-22d3be28904e",
+            "created": "Ene 20, 2021 12:51:43 PM",
+            "lastLogin": "Nov 16, 2023 12:51:43 PM",
+            "token": "NuevoTokenGenerado",
+            "isActive": true,
+            "name": "Julio Gonzalez",
+            "email": "julio@testssw.cl",
+            "password": "a2asfGfdfdf4",
+            "phones": [
+                {
+                    "number": 87650009,
+                    "citycode": 7,
+                    "contrycode": "25"
+                }
+            ]
+        }
+        ```
 - **Notas:**
-  - El token se actualiza cada vez que se realiza una consulta exitosa.
+    - El token se actualiza cada vez que se realiza una consulta exitosa.
 
 ## Respuesta de Error
 
@@ -115,15 +115,21 @@ En caso de error en cualquiera de los endpoints, se retornará una respuesta de 
 
 ```json
 {
-  "error": [
-    {
-      "timestamp": Timestamp,
-      "codigo": int,
-      "detail": String
-    }
-  ]
+    "error": [
+        {
+            "timestamp": Timestamp,
+            "codigo": int,
+            "detail": String
+        }
+    ]
 }
 ```
+## diagrama de componentes UML
+![diagrama de componentes UML](https://github.com/pablovass/userManagement/blob/main/src/main/resources/docs/userComponent.png?raw=true)
+
+
+## diagrama de secuencia UML
+![diagrama de secuencia UML](https://github.com/pablovass/userManagement/blob/main/src/main/resources/docs/userSequence.png?raw=true)
 
 ## Contribución
 
