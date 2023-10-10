@@ -1,0 +1,69 @@
+@startuml
+
+scale 1
+
+package "com.vallejos.pojo" {
+  [Person] -down-> [Phone]
+}
+
+package "com.vallejos.pojo.wrapper" {
+  [ErrorResponseWrapper]
+}
+
+package "com.vallejos.pojo.mapper" {
+  [CustomLoginMapper] -down-> [PersonLoginInfo]
+  [CustomLoginMapper] -down-> [PhoneLoginInfo]
+  [PersonLoginInfo] -down-> [PhoneLoginInfo]
+  [PersonCreatedResponse] -down-> [PersonInfo]
+  [CustomPersonMapper] -down-> [PersonInfo]
+  [LoginMapper] -down-> [PersonLoginInfo]
+}
+
+package "com.vallejos.repository" {
+  [PersonRepository]
+}
+
+package "com.vallejos.service" {
+  [PersonService]
+  [ValidationService]
+}
+
+package "com.vallejos.util" {
+  [DateFormatter]
+  [JwtTokenProvider]
+}
+
+package "com.vallejos.validation" {
+  [PersonValidator]
+}
+
+package "com.vallejos.exception" {
+  [ErrorController]
+  [ValidationExceptionMessage]
+  [ErrorResponse]
+}
+
+package "com.vallejos.controller" {
+  [PersonController]
+}
+
+[Person] ..> [Phone]
+[ErrorResponseWrapper]
+[CustomLoginMapper] ..> [PersonLoginInfo]
+[CustomLoginMapper] ..> [PhoneLoginInfo]
+[PersonLoginInfo] ..> [PhoneLoginInfo]
+[PersonCreatedResponse] ..> [PersonInfo]
+[CustomPersonMapper] ..> [PersonInfo]
+[LoginMapper] ..> [PersonLoginInfo]
+[PersonRepository]
+[PersonService]
+[ValidationService]
+[DateFormatter]
+[JwtTokenProvider]
+[PersonValidator]
+[ErrorController]
+[ValidationExceptionMessage]
+[ErrorResponse]
+[PersonController]
+
+@enduml
