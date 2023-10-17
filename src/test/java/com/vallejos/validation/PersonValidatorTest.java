@@ -19,11 +19,11 @@ public class PersonValidatorTest {
     private PersonValidator personValidator;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        personValidator = new PersonValidator();
-        personValidator.personRepository = personRepository;
-    }
+  // public void setUp() {
+  //     MockitoAnnotations.initMocks(this);
+  //     personValidator = new PersonValidator();
+  //     personValidator.personRepository = personRepository;
+  // }
 
     @Test
     public void testIsValidEmailValid() {

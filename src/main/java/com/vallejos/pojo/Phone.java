@@ -1,12 +1,9 @@
 package com.vallejos.pojo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
-
+@Getter
 @Data
 @Entity
 @AllArgsConstructor

@@ -13,7 +13,7 @@ public class ValidationService {
 
     private PersonValidator personValidator;
 
-    @Autowired
+
     public ValidationService(PersonValidator personValidator) {
         this.personValidator = personValidator;
     }

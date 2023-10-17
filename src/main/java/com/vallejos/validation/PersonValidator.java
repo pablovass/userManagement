@@ -8,8 +8,16 @@ import java.util.regex.Pattern;
 
 @Component
 public class PersonValidator {
+
+    private PersonRepository personRepository;
     @Autowired
-    PersonRepository personRepository;
+    public PersonValidator(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
+    public PersonValidator() {
+
+    }
 
     public boolean isValidEmail(String email) {
         // La expresión regular para validar una dirección de correo electrónico

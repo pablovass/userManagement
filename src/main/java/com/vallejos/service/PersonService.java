@@ -25,7 +25,7 @@ public class PersonService {
     private PersonMapper customMapper;
 
 
-    @Autowired
+
     public PersonService(PersonMapper customMapper, LoginMapper loginCustomMapper, LoginMapper loginMapper, DateFormatter dateFormatter, PasswordEncoder passwordEncoder, PersonRepository personRepository, JwtTokenProvider jwtTokenProvider) {
         this.personRepository = personRepository;
         this.jwtTokenProvider = jwtTokenProvider;
@@ -35,9 +35,6 @@ public class PersonService {
         this.loginCustomMapper = loginCustomMapper;
         this.customMapper = customMapper;
 
-    }
-
-    public PersonService(PersonRepository personRepository, JwtTokenProvider jwtTokenProvider, DateFormatter dateFormatter, CustomLoginMapper loginCustomMapper) {
     }
 
     public PersonCreatedResponse createUser(Person person) {
