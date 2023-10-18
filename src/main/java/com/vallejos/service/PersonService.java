@@ -1,8 +1,8 @@
 package com.vallejos.service;
 
+import com.vallejos.exception.ValidationExceptionMessage;
 import com.vallejos.mapper.PersonMapper;
 import com.vallejos.pojo.Person;
-import com.vallejos.pojo.Phone;
 import com.vallejos.pojo.dto.*;
 import com.vallejos.repository.PersonRepository;
 import com.vallejos.util.DateFormatter;
@@ -11,8 +11,8 @@ import com.vallejos.validation.PersonValidator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ValidationException;
 import java.time.LocalDateTime;
-import java.util.*;
 
 @Service
 public class PersonService {
@@ -44,6 +44,9 @@ public class PersonService {
     }
 
    public PersonDto getPersonByToken(String token) {
+       if(token.isEmpty()){
+           throw new ValidationException(String.valueOf(ValidationExceptionMessage.EMPTY_OBJECT));
+       }
        validationService.exitsData(token);
        Person person = personRepository.findByToken(token);
        String newToken = jwtTokenProvider.createToken(person.getId().toString());
