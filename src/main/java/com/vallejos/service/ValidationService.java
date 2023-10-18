@@ -1,9 +1,8 @@
 package com.vallejos.service;
 
 import com.vallejos.exception.ValidationExceptionMessage;
-import com.vallejos.pojo.Person;
+import com.vallejos.pojo.dto.PersonDto;
 import com.vallejos.validation.PersonValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;
@@ -25,7 +24,7 @@ public class ValidationService {
         return null;
     }
 
-    public ValidationException validatePerson(Person person) throws ValidationException {
+    public ValidationException validatePerson(PersonDto person) throws ValidationException {
         if (!personValidator.isValidEmail(person.getEmail())) {
             throw new ValidationException(String.valueOf(ValidationExceptionMessage.EMAIL_INVALID));
         }

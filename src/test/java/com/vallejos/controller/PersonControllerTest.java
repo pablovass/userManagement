@@ -1,50 +1,61 @@
 package com.vallejos.controller;
-import com.vallejos.pojo.Person;
-import com.vallejos.pojo.mapper.PersonCreatedResponse;
+
+import com.vallejos.pojo.dto.PersonDto;
+import com.vallejos.pojo.dto.PersonPostDtoResponse;
 import com.vallejos.service.PersonService;
-import com.vallejos.service.ValidationService;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import javax.xml.bind.ValidationException;
-
 import static org.mockito.Mockito.*;
 
-class PersonControllerTest {
-    @InjectMocks
-    private PersonController yourController;
 
-    @Mock
-    private ValidationService validationService;
+@ExtendWith(MockitoExtension.class)
+class PersonControllerTest {
 
     @Mock
     private PersonService personService;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
     @Test
-    public void testSignUpValidPerson() {
-        // Arrange
-        Person validPerson = new Person(); // Initialize a valid Person object
-        when(validationService.validatePerson(validPerson)).thenReturn(null); // Mock validationService to return no validation errors
-        when(personService.createUser(validPerson)).thenReturn(new PersonCreatedResponse());
+    void signUpShouldCreateANewUserAndReturnA201CreatedResponse() {
 
-        // Act
-        ResponseEntity<?> response = yourController.signUp(validPerson);
+        PersonDto personDto = new PersonDto();
+        PersonPostDtoResponse createdPersonResponse = new PersonPostDtoResponse();
 
-        // Assert
-        verify(validationService).validatePerson(validPerson); // Verify that validationService.validatePerson was called with the validPerson
-        verify(personService).createUser(validPerson); // Verify that personService.createUser was called with the validPerson
-        // You can add more assertions to check the response status and content
-        assert response.getStatusCode() == HttpStatus.CREATED;
-        // Add more assertions as needed
+
+        when(personService.createUser(personDto)).thenReturn(createdPersonResponse);
+
+        PersonController personController = new PersonController(personService);
+        ResponseEntity<PersonPostDtoResponse> response = personController.signUp(personDto);
+
+
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        Assertions.assertEquals(createdPersonResponse, response.getBody());
+
+
+        verify(personService).createUser(personDto);
     }
 
+    @Test
+    void loginByTokenShouldRetrieveUserInformationByTokenAndReturnA201CreatedResponse() {
+
+        String token = "valid-token";
+        PersonDto personDto = new PersonDto();
+
+
+        when(personService.getPersonByToken(token)).thenReturn(personDto);
+
+        PersonController personController = new PersonController(personService);
+        ResponseEntity<PersonDto> response = personController.loginByToken(token);
+
+
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        Assertions.assertEquals(personDto, response.getBody());
+
+
+        verify(personService).getPersonByToken(token);
+    }
 }

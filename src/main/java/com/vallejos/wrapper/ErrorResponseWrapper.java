@@ -1,4 +1,4 @@
-package com.vallejos.pojo.wrapper;
+package com.vallejos.wrapper;
 
 import com.vallejos.exception.ErrorResponse;
 

@@ -2,7 +2,7 @@ package com.vallejos.controller;
 
 import com.vallejos.exception.ErrorResponse;
 import com.vallejos.exception.ValidationExceptionMessage;
-import com.vallejos.pojo.wrapper.ErrorResponseWrapper;
+import com.vallejos.wrapper.ErrorResponseWrapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,5 +1,6 @@
-package com.vallejos.pojo.mapper;
+package com.vallejos.pojo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,8 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhoneLoginInfo {
+public class PhoneDto {
     private Long number;
     private Integer citycode;
-    private String contrycode;
+    private String countrycode;
+    @JsonIgnore
+    private PersonDto person;
 }

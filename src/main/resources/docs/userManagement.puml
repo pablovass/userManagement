@@ -2,21 +2,40 @@
 
 scale 1
 
+package "com.vallejos.configuration" {
+  [ModelMapperConfig]
+  [SecurityConfig]
+  [SwaggerConfig]
+}
+
+package "com.vallejos.controller" {
+  [ErrorController]
+  [PersonController]
+}
+
+package "com.vallejos.exception" {
+  [ErrorResponse]
+  [ValidationExceptionMessage]
+}
+
+package "com.vallejos.mapper" {
+  [PersonMapper]
+}
+
 package "com.vallejos.pojo" {
-  [Person] -down-> [Phone]
+  [Person]
+  [Phone]
+}
+
+package "com.vallejos.pojo.dto" {
+  [PersonDto]
+  [PersonPostDto]
+  [PersonPostDtoResponse]
+  [PhoneDto]
 }
 
 package "com.vallejos.pojo.wrapper" {
   [ErrorResponseWrapper]
-}
-
-package "com.vallejos.pojo.mapper" {
-  [CustomLoginMapper] -down-> [PersonLoginInfo]
-  [CustomLoginMapper] -down-> [PhoneLoginInfo]
-  [PersonLoginInfo] -down-> [PhoneLoginInfo]
-  [PersonCreatedResponse] -down-> [PersonInfo]
-  [CustomPersonMapper] -down-> [PersonInfo]
-  [LoginMapper] -down-> [PersonLoginInfo]
 }
 
 package "com.vallejos.repository" {
@@ -25,7 +44,6 @@ package "com.vallejos.repository" {
 
 package "com.vallejos.service" {
   [PersonService]
-  [ValidationService]
 }
 
 package "com.vallejos.util" {
@@ -33,37 +51,16 @@ package "com.vallejos.util" {
   [JwtTokenProvider]
 }
 
-package "com.vallejos.validation" {
-  [PersonValidator]
-}
+PersonController -down-> PersonService
+ErrorController -down-> ErrorResponse
+ErrorController -down-> ValidationExceptionMessage
 
-package "com.vallejos.exception" {
-  [ErrorController]
-  [ValidationExceptionMessage]
-  [ErrorResponse]
-}
+PersonService -down-> PersonMapper
+PersonService -down-> PersonRepository
 
-package "com.vallejos.controller" {
-  [PersonController]
-}
-
-[Person] ..> [Phone]
-[ErrorResponseWrapper]
-[CustomLoginMapper] ..> [PersonLoginInfo]
-[CustomLoginMapper] ..> [PhoneLoginInfo]
-[PersonLoginInfo] ..> [PhoneLoginInfo]
-[PersonCreatedResponse] ..> [PersonInfo]
-[CustomPersonMapper] ..> [PersonInfo]
-[LoginMapper] ..> [PersonLoginInfo]
-[PersonRepository]
-[PersonService]
-[ValidationService]
-[DateFormatter]
-[JwtTokenProvider]
-[PersonValidator]
-[ErrorController]
-[ValidationExceptionMessage]
-[ErrorResponse]
-[PersonController]
+PersonMapper -down-> Person
+PersonMapper -down-> PersonDto
+PersonMapper -down-> PhoneDto
+PersonMapper -down-> PersonPostDtoResponse
 
 @enduml
