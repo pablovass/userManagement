@@ -1,43 +1,42 @@
-# userManagement
-microservicio para consulta y creacion de usuarios.
 # User Management Microservice
 
-Este es un microservicio desarrollado en Java con Spring Boot para la creación y consulta de usuarios, así como la gestión de la seguridad. Permite a los usuarios registrarse, iniciar sesión y consultar su información.
+This is a microservice developed in Java with Spring Boot for user creation and retrieval, as well as security management. It allows users to register, log in, and access their information.
 
-## Características principales
+## Key Features
 
-- Creación de usuarios con validación de datos.
-- Autenticación y generación de tokens JWT.
-- Consulta de información de usuario.
-- Capa de seguridad para proteger los endpoints.
-- Almacenamiento de datos de usuario en una base de datos H2 (en memoria).
+- User creation with data validation.
+- Authentication and JWT token generation.
+- User information retrieval.
+- Security layer to protect endpoints.
+- User data storage in an in-memory H2 database.
 
-## Requisitos
+## Requirements
 
-- Java 8 o superior.
-- Gradle 8 o superior para la gestión de dependencias.
-- IDE de desarrollo compatible con Spring Boot (por ejemplo, IntelliJ IDEA o Eclipse).
+- Java 8 or higher.
+- Gradle 8 or higher for dependency management.
+- Development IDE compatible with Spring Boot (e.g., IntelliJ IDEA or Eclipse).
 
-## Configuración
+## Configuration
 
-1. Clona este repositorio en tu máquina local.
-2. Abre el proyecto en tu IDE.
-3. Personaliza la configuración de la base de datos en `application.properties`.
-4. Compila y ejecuta la aplicación.
+1. Clone this repository to your local machine.
+2. Open the project in your IDE.
+3. Customize the database configuration in `application.properties`.
+4. Compile and run the application.
 
-# Uso
-## Documentación de API - Registro y Consulta de Usuarios
+# Usage
 
-Esta documentación describe los endpoints de la API de registro y consulta de usuarios para una aplicación Java Spring Boot 2.7. La API permite la creación de nuevos usuarios y la consulta de usuarios existentes utilizando tokens JWT para la autenticación.
+## API Documentation - User Registration and Retrieval
+
+This documentation describes the endpoints of the user registration and retrieval API for a Java Spring Boot 2.7 application. The API allows the creation of new users and the retrieval of existing users using JWT tokens for authentication.
 
 ## Endpoints
 
-### Registro de Usuario
+### User Registration
 
 - **URL:** `/sign-up`
-- **Método HTTP:** `POST`
-- **Descripción:** Endpoint para crear un nuevo usuario.
-- **Contrato de entrada:**
+- **HTTP Method:** `POST`
+- **Description:** Endpoint to create a new user.
+- **Request Contract:**
     ```json
     {
         "name": "String",
@@ -52,13 +51,13 @@ Esta documentación describe los endpoints de la API de registro y consulta de u
         ]
     }
     ```
-- **Validaciones:**
-    - El correo debe seguir la expresión regular `(aaaaaaa@undominio.algo)`.
-    - La contraseña debe seguir la expresión regular (minimo 8 o maximo 12 letras o numeros) `(a2asfGfdfdf4)`.
-- **Campos opcionales:**
-    - El nombre y los teléfonos son campos opcionales.
-- **Respuesta exitosa:**
-    - En caso de éxito, se retorna el usuario con los siguientes campos:
+- **Validations:**
+    - Email must follow the regular expression `(aaaaaaa@domain.com)`.
+    - Password must follow the regular expression (minimum 8 or maximum 12 letters or numbers) `(a2asfGfdfdf4)`.
+- **Optional Fields:**
+    - Name and phones are optional fields.
+- **Successful Response:**
+    - In case of success, the user is returned with the following fields:
         ```json
         {  
         "user_created":{
@@ -70,29 +69,29 @@ Esta documentación describe los endpoints de la API de registro y consulta de u
           }
         }
         ```
-- **Persistencia de Datos:**
-    - El usuario se persiste en una base de datos utilizando Spring Data y H2.
-    - La contraseña se almacena de manera encriptada.
+- **Data Persistence:**
+    - The user is persisted in a database using Spring Data and H2.
+    - The password is stored in an encrypted form.
 
-### Consulta de Usuario
+### User Retrieval
 
 - **URL:** `/login`
-- **Método HTTP:** `GET`
-- **Descripción:** Endpoint para consultar la información de un usuario autenticado.
-- **Contrato de entrada:**
+- **HTTP Method:** `GET`
+- **Description:** Endpoint to retrieve information of an authenticated user.
+- **Request Contract:**
     ```
     http://localhost:8080/api/login?token={user token}
-   EJEMPLO: http://localhost:8080/api/login?token=eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTY4OTI
+   EXAMPLE: http://localhost:8080/api/login?token=eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2OTY4OTI
     ```
-- **Autenticación:** Se requiere un token JWT generado en el endpoint de registro.
-- **Respuesta exitosa:**
-    - En caso de éxito, se retorna la información del usuario:
+- **Authentication:** A JWT token generated in the registration endpoint is required.
+- **Successful Response:**
+    - In case of success, the user's information is returned:
         ```json
         {
             "id": "e5c6cf84-8860-4c00-91cd-22d3be28904e",
-            "created": "Ene 20, 2021 12:51:43 PM",
+            "created": "Jan 20, 2021 12:51:43 PM",
             "lastLogin": "Nov 16, 2023 12:51:43 PM",
-            "token": "NuevoTokenGenerado",
+            "token": "NewlyGeneratedToken",
             "isActive": true,
             "name": "Julio Gonzalez",
             "email": "julio@testssw.cl",
@@ -106,45 +105,46 @@ Esta documentación describe los endpoints de la API de registro y consulta de u
             ]
         }
         ```
-- **Notas:**
-    - El token se actualiza cada vez que se realiza una consulta exitosa.
+- **Notes:**
+    - The token is updated every time a successful retrieval is made.
 
-## Respuesta de Error
+## Error Response
 
-En caso de error en cualquiera de los endpoints, se retornará una respuesta de error en el siguiente formato:
+In case of an error in any of the endpoints, an error response will be returned in the following format:
 
 ```json
 {
     "error": [
         {
             "timestamp": "Timestamp",
-            "codigo": "int",
+            "code": "int",
             "detail": "String"
         }
     ]
 }
 ```
-## diagrama de componentes UML
-![diagrama de componentes UML](https://github.com/pablovass/userManagement/blob/main/src/main/resources/docs/userComponent.png?raw=true)
 
+## UML Component Diagram
 
-## diagrama de secuencia UML
-![diagrama de secuencia UML](https://github.com/pablovass/userManagement/blob/main/src/main/resources/docs/userSequence.png?raw=true)
+![UML Component Diagram](https://github.com/pablovass/userManagement/blob/main/src/main/resources/docs/userComponent.png?raw=true)
 
-## Contribución
+## UML Sequence Diagram
 
-Si deseas contribuir a este proyecto, sigue estos pasos:
+![UML Sequence Diagram](https://github.com/pablovass/userManagement/blob/main/src/main/resources/docs/userSequence.png?raw=true)
 
-1. Haz un fork del repositorio.
-2. Crea una nueva rama para tu contribución.
-3. Realiza tus cambios y mejoras.
-4. Envía una solicitud pull a la rama principal.
+## Contribution
 
-## Licencia
+If you wish to contribute to this project, follow these steps:
 
-Este proyecto es netamente academico.
+1. Fork the repository.
+2. Create a new branch for your contribution.
+3. Make your changes and improvements.
+4. Send a pull request to the main branch.
 
-## Contacto
+## License
 
-Si tienes preguntas o sugerencias, no dudes en ponerte en contacto con Pablo  en vallejos_pablo@live.com.
+This project is purely academic.
 
+## Contact
+
+If you have questions or suggestions, don't hesitate to contact Pablo at vallejos_pablo@live.com.
