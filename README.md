@@ -111,10 +111,10 @@ En caso de un error en cualquiera de los puntos finales, se devolverá una respu
 ```
 
 ## Diagrama de Componentes UML
-![Diagrama de Componentes UML](UML_Component_Diagram.png)
+![Diagrama de Componentes UML](https://github.com/pablovass/userManagement/blob/main/src/main/resources/docs/userComponent.png?raw=true)
 
 ## Diagrama de Secuencia UML
-![Diagrama de Secuencia UML](UML_Sequence_Diagram.png)
+![Diagrama de Secuencia UML](https://github.com/pablovass/userManagement/blob/main/src/main/resources/docs/userSequence.png?raw=true)
 
 ## Contribución
 Si deseas contribuir a este proyecto, sigue estos pasos:
