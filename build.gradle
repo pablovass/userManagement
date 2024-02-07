@@ -25,11 +25,8 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.projectlombok', name: 'lombok-mapstruct-binding', version: '0.2.0'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
