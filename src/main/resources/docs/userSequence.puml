@@ -1,0 +1,57 @@
+@startuml
+actor User
+
+User -> PersonController: Realiza una solicitud de registro
+activate PersonController
+PersonController -> PersonService: Llama al servicio de registro
+activate PersonService
+PersonService -> ValidationService: Valida la solicitud
+activate ValidationService
+ValidationService -> PersonValidator: Verifica el correo electrónico y la contraseña
+activate PersonValidator
+PersonValidator --> ValidationService: Resultado de la validación
+deactivate PersonValidator
+ValidationService --> PersonService: Respuesta de validación
+deactivate ValidationService
+PersonService -> PersonMapper: Mapea los datos de la solicitud
+activate PersonMapper
+PersonMapper -> PersonService: Registra una nueva persona
+PersonService -> PersonRepository: Almacena la información en la base de datos
+activate PersonRepository
+PersonRepository --> PersonService: Confirmación del almacenamiento
+deactivate PersonRepository
+PersonService -> JwtTokenProvider: Genera un token de acceso
+activate JwtTokenProvider
+JwtTokenProvider --> PersonService: Token generado
+deactivate JwtTokenProvider
+PersonService -> PersonMapper: Mapea la respuesta de registro
+PersonMapper --> PersonService: Respuesta mapeada
+deactivate PersonMapper
+PersonService --> User: Retorna la respuesta de registro exitoso
+deactivate PersonService
+deactivate PersonController
+User -> PersonController: Realiza una solicitud de registro inválida
+activate PersonController
+PersonController -> PersonService: Llama al servicio de registro
+activate PersonService
+PersonService -> ValidationService: Valida la solicitud
+activate ValidationService
+ValidationService -> PersonValidator: Verifica el correo electrónico y la contraseña
+activate PersonValidator
+PersonValidator -> ValidationService: Falla la validación
+deactivate PersonValidator
+ValidationService -> PersonService: Respuesta de falla validación
+deactivate ValidationService
+PersonService -> ErrorController: Reporta el error
+activate ErrorController
+ErrorController -> ErrorResponseWrapper: Crea una respuesta de error
+activate ErrorResponseWrapper
+ErrorResponseWrapper --> User: Retorna una respuesta de error
+deactivate ErrorResponseWrapper
+deactivate ErrorController
+deactivate PersonMapper
+deactivate PersonService
+deactivate PersonController
+
+
+@enduml

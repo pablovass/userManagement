@@ -1,0 +1,66 @@
+@startuml
+
+scale 1
+
+package "com.vallejos.configuration" {
+  [ModelMapperConfig]
+  [SecurityConfig]
+  [SwaggerConfig]
+}
+
+package "com.vallejos.controller" {
+  [ErrorController]
+  [PersonController]
+}
+
+package "com.vallejos.exception" {
+  [ErrorResponse]
+  [ValidationExceptionMessage]
+}
+
+package "com.vallejos.mapper" {
+  [PersonMapper]
+}
+
+package "com.vallejos.pojo" {
+  [Person]
+  [Phone]
+}
+
+package "com.vallejos.pojo.dto" {
+  [PersonDto]
+  [PersonPostDto]
+  [PersonPostDtoResponse]
+  [PhoneDto]
+}
+
+package "com.vallejos.pojo.wrapper" {
+  [ErrorResponseWrapper]
+}
+
+package "com.vallejos.repository" {
+  [PersonRepository]
+}
+
+package "com.vallejos.service" {
+  [PersonService]
+}
+
+package "com.vallejos.util" {
+  [DateFormatter]
+  [JwtTokenProvider]
+}
+
+PersonController -down-> PersonService
+ErrorController -down-> ErrorResponse
+ErrorController -down-> ValidationExceptionMessage
+
+PersonService -down-> PersonMapper
+PersonService -down-> PersonRepository
+
+PersonMapper -down-> Person
+PersonMapper -down-> PersonDto
+PersonMapper -down-> PhoneDto
+PersonMapper -down-> PersonPostDtoResponse
+
+@enduml
