@@ -70,6 +70,8 @@ Esta documentación describe los puntos finales de la API de registro y recupera
 - **Persistencia de Datos:**
   - El usuario se persiste en una base de datos utilizando Spring Data y H2.
   - La contraseña se almacena en forma encriptada.
+  - Se encuentra configurado Swagguer para la consultas de los enpoins en http://localhost:8080/swagger-ui.html.
+  - La configuración de acceso de Swagguer se encuentra en el `application.properties`.
 
 #### Recuperación de Usuario
 - **URL:** /login
